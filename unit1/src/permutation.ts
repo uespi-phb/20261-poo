@@ -6,20 +6,21 @@ const secondNumber = inputNumber('2º número: ')
 
 let result: string
 if (isPermutation(firstNumber, secondNumber)) {
-  result = 'não é'
-} else {
   result = 'é'
+} else {
+  result = 'não é'
 }
 print(`${secondNumber} ${result} uma permutação de ${firstNumber}`)
 
 function countDigits(n: number): number[] {
   const digitCounting = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-  while (n > 0) {
+  do {
     const digit = n % 10
     digitCounting[digit]!++
     n = Math.floor(n / 10)
-  }
+  } while (n > 0)
+
   return digitCounting
 }
 
