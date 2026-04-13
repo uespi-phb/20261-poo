@@ -1,6 +1,6 @@
 import * as fs from 'node:fs'
 
-function main() {
+function main(): void {
   // Get command line arguments and discard first 2 arguments.
   const cliArgs = process.argv.slice(2)
 
@@ -12,10 +12,22 @@ function main() {
   const inputFileName = cliArgs[0] as string
   const outputFileName = cliArgs[1] as string
 
-  const inputFileContent = fs.readFileSync(inputFileName).toString()
+  let inputFileContent: string
+  try {
+    inputFileContent = fs.readFileSync(inputFileName).toString()
+  } catch {
+    console.error(`Erro ao abrir arquivo: ${inputFileName}`)
+    return
+  }
   const lines = inputFileContent.split('\n')
 
-  const outputFile = fs.openSync(outputFileName, 'w')
+  let outputFile: number
+  try {
+    outputFile = fs.openSync(outputFileName, 'w')
+  } catch {
+    console.error(`Erro ao criar arquivo: ${inputFileName}`)
+    return
+  }
 
   console.log(`Reading from "${inputFileName}"`)
   console.log(`Writing to "${outputFileName}"`)

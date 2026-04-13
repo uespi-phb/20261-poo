@@ -14,5 +14,9 @@ export function inputNumber(question?: string): number {
 }
 
 export function print(...args: unknown[]): void {
-  console.log(...args)
+  process.stdout.write(args.join(''))
+}
+
+export function clearScreen(): void {
+  print('\x1b[H\x1b[2J')
 }
