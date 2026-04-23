@@ -1,13 +1,13 @@
-import { inputNumber, print } from './stdio'
+import { inputNumber, print } from '../lib/stdio'
 
 function factorial(n: number): number {
-  let product = 1
+    let product = 1
 
-  for (let k = 1; k <= n; k++) {
-    product = product * k
-  }
+    for (let k = 1; k <= n; k++) {
+        product = product * k
+    }
 
-  return product
+    return product
 }
 
 print('## CÁLCULO DO FATORIAL ##\n')

@@ -1,4 +1,4 @@
-import { input, print } from './stdio'
+import { input, print } from '../lib/stdio'
 
 const name = input('Digite seu nome:')
 print('Olá,', name)

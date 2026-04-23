@@ -1,4 +1,4 @@
-import { inputNumber, print } from './stdio'
+import { inputNumber, print } from '../lib/stdio'
 
 print('Digite uma sequência de números e termine com ENTER:\n')
 
@@ -7,18 +7,18 @@ let countEven: number = 0
 let sumNumbers: number = 0
 
 do {
-  const number = inputNumber()
-  if (Number.isNaN(number)) {
-    break
-  }
+    const number = inputNumber()
+    if (Number.isNaN(number)) {
+        break
+    }
 
-  countNumbers++
+    countNumbers++
 
-  if (number % 2 === 0) {
-    countEven++
-  }
+    if (number % 2 === 0) {
+        countEven++
+    }
 
-  sumNumbers += number
+    sumNumbers += number
 } while (true)
 
 const countOdd = countNumbers - countEven

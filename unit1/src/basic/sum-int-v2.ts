@@ -1,4 +1,4 @@
-import { inputNumber } from './stdio'
+import { inputNumber } from '../lib/stdio'
 
 let number: number
 let sum: number
