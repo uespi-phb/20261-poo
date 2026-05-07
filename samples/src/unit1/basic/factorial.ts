@@ -13,4 +13,5 @@ function factorial(n: number): number {
 print('## CÁLCULO DO FATORIAL ##\n')
 const number = inputNumber('Informe um número: ')
 const nFactorial = factorial(number)
-print(`${number}! = ${nFactorial}`)
+print(`${number}! = ${nFactorial}\n`)
+
