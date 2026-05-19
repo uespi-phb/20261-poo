@@ -3,7 +3,7 @@ type Fraction = {
   den: number
 }
 
-class Rational {
+export class Rational {
   public readonly num: number
   public readonly den: number
 
@@ -57,6 +57,10 @@ class Rational {
     return `${this.num}/${this.den}`
   }
 
+  equals(other: Rational): boolean {
+    return this.num === other.num && this.den === other.den
+  }
+
   add(other: Rational): Rational {
     const num = this.num * other.den + this.den * other.num
     const den = this.den * other.den
@@ -77,23 +81,3 @@ class Rational {
     return new Rational(this.num * other.den, this.den * other.num)
   }
 }
-
-const r1 = new Rational()
-const r2 = new Rational(5)
-const r3 = new Rational(5, 3)
-const r4 = new Rational(-2, 5)
-
-const radd = r3.add(r4)
-const rsub = r3.sub(r4)
-const rmul = r3.mul(r4)
-const rdiv = r3.div(r4)
-
-console.log('r1 =', r1.toString())
-console.log('r2 =', r2.toString())
-console.log('r3 =', r3.toString())
-console.log('r4 =', r4.toString())
-
-console.log('r3 + r4 =', radd.toString())
-console.log('r3 - r4 =', rsub.toString())
-console.log('r3 x r4 =', rmul.toString())
-console.log('r3 : r4 =', rdiv.toString())
