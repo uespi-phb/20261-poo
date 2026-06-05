@@ -8,12 +8,12 @@ export class SpecialAccount extends Account {
     this.limit = limit
   }
 
-  available(): number {
+  availableBalance(): number {
     return this.limit + this.balance
   }
 
   override show(): void {
     super.show()
-    console.log(`Disponv: ${this.available()}`)
+    console.log(`Disponv: ${this.availableBalance()}`)
   }
 }

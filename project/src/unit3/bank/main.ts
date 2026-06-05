@@ -1,5 +1,6 @@
 import { Account } from './account'
 import { SpecialAccount } from './special-account'
+import { formatLine } from './utils'
 
 const accounts = [
   new Account(123, 102033, 'Ana Barros'),
@@ -12,3 +13,6 @@ for (const account of accounts) {
   account.show()
   console.log('----')
 }
+
+const line = formatLine('0506\tSALDO\t1.234,56', ['<5', '^20', '>15'])
+console.log(line)

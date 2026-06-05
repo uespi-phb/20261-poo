@@ -42,6 +42,8 @@ export class Account {
     to.deposit(value)
   }
 
+  statement(): void {}
+
   show(): void {
     console.log(`Agência: ${this.agency}`)
     console.log(`Conta  : ${this.number}`)
