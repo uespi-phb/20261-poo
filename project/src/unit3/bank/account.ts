@@ -14,6 +14,8 @@ class Account {
 }
 */
 
+import { printFormatted, printLine } from './utils'
+
 export class Account {
   protected balance: number
 
@@ -42,7 +44,54 @@ export class Account {
     to.deposit(value)
   }
 
-  statement(): void {}
+  protected getStatatmentCols(): {
+    statementWidth: number
+    dateWidth: number
+    valueWidth: number
+    descWidth: number
+    statementCols: string[]
+  } {
+    const statementWidth = 40
+    const dateWidth = 6
+    const valueWidth = 12
+    const descWidth = statementWidth - dateWidth - valueWidth
+    const statementCols = [`<${dateWidth}`, `<${descWidth}`, `>${valueWidth}`]
+
+    return {
+      statementWidth,
+      dateWidth,
+      valueWidth,
+      descWidth,
+      statementCols,
+    }
+  }
+
+  statement(): void {
+    const cols = this.getStatatmentCols()
+
+    printFormatted('BANCO EXEMPLO  S/A', [`^${cols.statementWidth}`])
+    printFormatted('EXTRATO DA CONTA', [`^${cols.statementWidth}`])
+    printFormatted(`AG: ${this.agency}\tCC: ${this.number}`, [
+      `<${cols.statementWidth / 2}`,
+      `>${cols.statementWidth / 2}`,
+    ])
+    printFormatted(`TITULAR: ${this.holder}`, [`<${cols.statementWidth}`])
+    printLine(cols.statementWidth)
+    printFormatted('DATA\tDESCRIÇÃO\tVALOR', cols.statementCols)
+
+    const dateCol = '-'.repeat(cols.dateWidth - 1)
+    const descCol = '-'.repeat(cols.descWidth - 1)
+    const valueCol = '-'.repeat(cols.valueWidth)
+    printFormatted(`${dateCol}\t${descCol}\t${valueCol}`, cols.statementCols)
+
+    const today = new Date()
+    const date = today.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
+    const value = this.balance.toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+    printFormatted(`${date}\tSALDO\t${value}`, cols.statementCols)
+  }
 
   show(): void {
     console.log(`Agência: ${this.agency}`)

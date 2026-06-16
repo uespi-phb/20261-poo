@@ -12,23 +12,28 @@ type ColumnFormat = {
 function formatStrToObject(formatString: string): ColumnFormat {
   if (formatString.length < 2) throw new Error(`invalid format string: "${formatString}"`)
 
+  const alignLeftChar = '<'
+  const alignRightChar = '>'
+  const alignCenterChar = '^'
+
   let align: Alignment
   switch (formatString[0]) {
-    case '<':
+    case alignLeftChar:
       align = Alignment.left
       break
 
-    case '>':
+    case alignRightChar:
       align = Alignment.right
       break
 
-    case '^':
+    case alignCenterChar:
       align = Alignment.center
       break
 
     default:
       throw new Error(`invalid format string: "${formatString}"`)
   }
+
   let width: number
   try {
     width = Number.parseInt(formatString.slice(1))
@@ -37,8 +42,8 @@ function formatStrToObject(formatString: string): ColumnFormat {
   }
 
   return {
-    width,
     align,
+    width,
   }
 }
 
@@ -72,10 +77,18 @@ export function formatLine(dataLine: string, format: string[], separatorChar: st
   const colunms = format.map(formatStrToObject)
   const data = dataLine.split(separatorChar)
 
-  let line = '|'
+  let line = ''
   for (let index = 0; index < colunms.length; index++) {
-    line += formatData(data[index]!, colunms[index]!) + '|'
+    line += formatData(data[index]!, colunms[index]!)
   }
 
   return line
+}
+
+export function printFormatted(dataLine: string, format: string[], separatorChar: string = '\t'): void {
+  console.log(formatLine(dataLine, format, separatorChar))
+}
+
+export function printLine(width: number, lineChar: string = '-'): void {
+  console.log(lineChar.repeat(width))
 }
