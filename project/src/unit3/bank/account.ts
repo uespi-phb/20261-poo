@@ -14,9 +14,10 @@ class Account {
 }
 */
 
-import { printFormatted, printLine } from './utils'
+import type { BankAccount } from './bank-account'
+import { formatCurrency, printFormatted, printLine } from './utils'
 
-export class Account {
+export class Account implements BankAccount {
   protected balance: number
 
   constructor(
@@ -25,6 +26,10 @@ export class Account {
     public readonly holder: string,
   ) {
     this.balance = 0.0
+  }
+
+  accountTypeName(): string {
+    return 'CORRENTE'
   }
 
   deposit(value: number): void {
@@ -68,10 +73,11 @@ export class Account {
 
   statement(): void {
     const cols = this.getStatatmentCols()
+    const typeName = this.accountTypeName()
 
     printFormatted('BANCO EXEMPLO  S/A', [`^${cols.statementWidth}`])
-    printFormatted('EXTRATO DA CONTA', [`^${cols.statementWidth}`])
-    printFormatted(`AG: ${this.agency}\tCC: ${this.number}`, [
+    printFormatted(`EXTRATO DE CONTA ${typeName}`, [`^${cols.statementWidth}`])
+    printFormatted(`AG: ${this.agency}\tNO: ${this.number}`, [
       `<${cols.statementWidth / 2}`,
       `>${cols.statementWidth / 2}`,
     ])
@@ -86,10 +92,7 @@ export class Account {
 
     const today = new Date()
     const date = today.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
-    const value = this.balance.toLocaleString('pt-BR', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })
+    const value = formatCurrency(this.balance)
     printFormatted(`${date}\tSALDO\t${value}`, cols.statementCols)
   }
 

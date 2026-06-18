@@ -92,3 +92,10 @@ export function printFormatted(dataLine: string, format: string[], separatorChar
 export function printLine(width: number, lineChar: string = '-'): void {
   console.log(lineChar.repeat(width))
 }
+
+export function formatCurrency(value: number): string {
+  return value.toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+}
