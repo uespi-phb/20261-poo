@@ -1,7 +1,9 @@
 import { Shape } from './shape'
 
+type TriangleEdges = [number, number, number]
+
 export class Triangle extends Shape {
-  private readonly edges: [number, number, number]
+  private readonly edges: TriangleEdges
 
   constructor(edge1: number, edge2: number, edge3: number, name: string = 'Triangle') {
     super(name)
@@ -10,7 +12,7 @@ export class Triangle extends Shape {
     this.edges = [edge1, edge2, edge3]
   }
 
-  validate(edge1: number, edge2: number, edge3: number): void {
+  private validate(edge1: number, edge2: number, edge3: number): void {
     if (edge1 + edge2 <= edge3 || edge1 + edge3 <= edge2 || edge2 + edge3 <= edge1)
       throw new Error('Invalid triangle edges')
   }
